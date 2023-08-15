@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Models;
 
@@ -6,22 +6,85 @@ use App\Models\Database;
 
 class User extends Database
 {
-  public static function fetch()
-  {
-    $pdo = self::getConnection();
+    public static function fetch($id)
+    {
+        $pdo = self::getConnection();
 
-    try {
-      $stm = $pdo->query("SELECT * FROM users");
-      
-      if ($stm->rowCount() > 0) {
-        $user = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        try {
+            $stm = $pdo->prepare("SELECT id, name, email FROM users WHERE id = ?");
+            $stm->execute([$id]);
 
-        return $user;
-      } else {
-        return [];
-      }
-    } catch (\Throwable $err) {
-      return ['error' => $err->getMessage()];
+            if ($stm->rowCount() > 0) {
+                $user = $stm->fetchAll(\PDO::FETCH_ASSOC);
+
+                return $user;
+            } else {
+                return [];
+            }
+        } catch (\Throwable $err) {
+            return ['error' => 'Sorry, something went wrong! Table: users'];
+        }
     }
-  }
+
+    public static function store($name, $email, $password)
+    {
+        $pdo = self::getConnection();
+
+        try {
+            $stm = $pdo->prepare(
+                "INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, ?)"
+            );
+            $stm->execute([$name, $email, $password, date('Y-m-d H:m:s')]);
+
+            return $pdo->lastInsertId();
+
+        } catch (\Throwable $err) {
+            $error = match ($err->getCode()) {
+                '23505' => ['error' => 'Email already exists!'],
+                default => ['error' => 'Sorry, something went wrong!']
+            };
+
+            return $error;
+        }
+    }
+
+    public static function login($email, $password)
+    {
+        $pdo = self::getConnection();
+
+        try {
+            $stm = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+            $stm->execute([$email]);
+
+            if (!$stm->rowCount() > 0) {
+                return false;
+            }
+
+            $user = $stm->fetch(\PDO::FETCH_ASSOC);
+
+            if (!password_verify($password, $user['password'])) {
+                return false;
+            }
+
+            return $user['id'];
+
+        } catch (\Throwable $err) {
+            return ['error' => 'Sorry, something went wrong! Table: users'];
+        }
+    }
+
+    public static function update($name, $id)
+    {
+        $pdo = self::getConnection();
+
+        try {
+            $stm = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
+            $stm->execute([$name, $id]);
+
+            return true;
+
+        } catch (\Throwable $err) {
+            return ['error' => 'Sorry, something went wrong! Table: users'];
+        }
+    }
 }

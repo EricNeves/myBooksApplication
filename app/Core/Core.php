@@ -8,41 +8,41 @@ use App\Http\Response;
 
 class Core extends Router
 {
-  public static function run()
-  {
-    $url = '/';
+    public static function run()
+    {
+        $url = '/';
 
-    $routerFound = false;
+        $routerFound = false;
 
-    isset($_GET['url']) ? $url .= $_GET['url'] : $url;
+        isset($_GET['url']) ? $url .= $_GET['url'] : $url;
 
-    ($url != '/') ? $url = rtrim($url, '/') : $url;
+        ($url != '/') ? $url = rtrim($url, '/') : $url;
 
-    $prefixService = '\App\\Services\\';
-  
-    foreach (self::routes() as $path => $service) {
-      
-      $pattern = '#^'.preg_replace('/{id}/', '([\w-]+)', $path).'$#';
+        $prefixService = '\App\\Services\\';
 
-      if (preg_match($pattern, $url, $matches)) {
+        foreach (self::routes() as $path => $service) {
 
-        array_shift($matches);
+            $pattern = '#^' . preg_replace('/{id}/', '([\w-]+)', $path) . '$#';
 
-        $routerFound = true;
+            if (preg_match($pattern, $url, $matches)) {
 
-        [$currentService, $action] = explode('@', $service);
+                array_shift($matches);
 
-        $extendService = $prefixService.$currentService;
+                $routerFound = true;
 
-        $service = new $extendService();
-        
-        $service->$action(new Request, new Response, $matches);
-      }
+                [$currentService, $action] = explode('@', $service);
+
+                $extendService = $prefixService . $currentService;
+
+                $service = new $extendService();
+
+                $service->$action(new Request, new Response, $matches);
+            }
+        }
+
+        if (!$routerFound) {
+            $service = new \App\Services\NotFoundService();
+            $service->index(new Request, new Response);
+        }
     }
-
-    if (!$routerFound) {
-      $service = new \App\Services\NotFoundService();
-      $service->index(new Request, new Response);
-    }
-  }
 }

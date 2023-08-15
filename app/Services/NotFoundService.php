@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use App\Http\Request;
 use App\Http\Response;
 
-class NotFoundService 
+class NotFoundService
 {
-  public function index(Request $request, Response $response)
-  {
-    $response::json(404, ['error' => 'Endpoint Not Found']);
-  }
+    public function index(Request $request, Response $response)
+    {
+        $response::json(404, ['error' => 'Endpoint Not Found']);
+    }
 }
