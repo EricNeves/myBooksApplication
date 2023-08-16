@@ -66,26 +66,25 @@ class BookService
 
         $body = $request::body();
 
-        $validate = Validator::validateCreateBook($body);
+        $validate = Validator::validateFieldsBook($body);
 
         if (array_key_exists('error', $validate)) {
             return $response::json(400, $validate);
         }
 
-        $result = ResizeImage::resize($validate['image'], 400);
+        $image = ResizeImage::resize($validate['image'], 400);
 
-        if (array_key_exists('error', $result)) {
-            return $response::json(400, $result);
+        if (array_key_exists('error', $image)) {
+            return $response::json(400, $image);
         }
 
         $create_book = Book::create(
-            $validate['title'], $validate['description'], $result['image'], $user->id
+            $validate['title'], $validate['description'], $image['image'], $user->id
         );
 
         if (!$create_book) {
             return $response::json(400, ['error' => [
-                'Sorry, something wemt wrong!',
-                $create_book
+                'Sorry, something wemt wrong!'
             ]]);
         }
 
@@ -154,7 +153,67 @@ class BookService
         ]);
     }
 
-    public function update() {}
+    public function update(Request $request, Response $response, $id) 
+    {
+        if ($request::method() != 'PUT') {
+            return $response::json(405, ['error' => 'Method not allowed']);
+        }
 
-    public function remove() {}
+        if (!$this->isAuthenticated) {
+            return $response::json(401, [
+                'error' => 'Unauthorized, verify: Bearer + Token JWT'
+            ]);
+        }
+
+        $user = $this->isAuthenticated;
+
+        $body = $request::body();
+
+        $validate = Validator::validateFieldsBook($body);
+
+        if (array_key_exists('error', $validate)) {
+            return $response::json(400, $validate);
+        }
+
+        $image = ResizeImage::resize($validate['image'], 400);
+
+        if (array_key_exists('error', $image)) {
+            return $response::json(400, $image);
+        }
+
+        $update_book = Book::update(
+            $validate['title'],
+            $validate['description'],
+            $image['image'],
+            $id[0],
+            $user->id
+        );
+
+        if (!$update_book) {
+            return $response::json(400, ['error' => [
+                'Sorry, something wemt wrong!'
+            ]]);
+        }
+
+        return $response::json(202, [
+            'success' => 'Book updated successfully!'
+        ]);
+    }
+
+    public function remove(Request $request, Response $response, $id) 
+    {
+        if ($request::method() != 'DELETE') {
+            return $response::json(405, ['error' => 'Method not allowed']);
+        }
+
+        if (!$this->isAuthenticated) {
+            return $response::json(401, [
+                'error' => 'Unauthorized, verify: Bearer + Token JWT'
+            ]);
+        }
+
+        $user = $this->isAuthenticated;
+
+        
+    }
 }

@@ -54,11 +54,11 @@ class Book extends Database
             ");
             $stm_book->execute([$image, date('Y-m-d H:m:s'), $pdo->lastInsertId(), $user_id]);
 
-            if ($pdo->commit()) {
-                return true;
-            } else {
+            if (!$pdo->commit()) {
                 return false;
             }
+
+            return true;
         } catch (\Throwable $err) {
 
             $pdo->rollBack();
@@ -82,18 +82,27 @@ class Book extends Database
         }
     }
 
-    public static function update($id)
+    public static function update($title, $description, $image, $book_id, $user_id)
     {
         $pdo = self::getConnection();
 
         try {
-            $stm = $pdo->prepare("SELECT * FROM books WHERE id = ?");
-            $stm->execute([$id]);
+            $pdo->beginTransaction();
 
-            $book = $stm->fetchAll(\PDO::FETCH_ASSOC);
+            $stm = $pdo->prepare("UPDATE books SET title = ?, description = ? WHERE id = ? AND user_id = ?");
+            $stm->execute([$title, $description, $book_id, $user_id]);
 
-            return $book;
+            $stm_image = $pdo->prepare("UPDATE images SET image = ? WHERE book_id = ? AND user_id = ?");
+            $stm_image->execute([$image, $book_id, $user_id]);
+
+            if($pdo->commit()) {
+                return true;
+            } else {
+                return false;
+            }
+
         } catch (\Throwable $err) {
+            $pdo->rollBack();
             return ['error' => 'Sorry, something went wrong! Table: books'];
         }
     }

@@ -65,7 +65,7 @@ class Validator
         }
     }
 
-    public static function validateCreateBook($body)
+    public static function validateFieldsBook($body)
     {
         if ($body == null) {
             return ['error' => 'Title|Description|Image is required!'];
