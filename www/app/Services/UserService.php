@@ -53,6 +53,10 @@ class UserService
 
         $validate = Validator::validateSignUp($body);
 
+        if (array_key_exists('error', $validate)) {
+            return $response::json(200, $validate);
+        }
+
         $store = User::store(
             $validate['name'],
             $validate['email'],
@@ -75,6 +79,12 @@ class UserService
         }
 
         $body = $request::body();
+
+        $validate  = Validator::validateLogin($body);
+
+        if (array_key_exists('error', $validate)) {
+            return $response::json(400, $validate);
+        }
 
         $auth = User::login($body->email, $body->password);
 
@@ -108,7 +118,11 @@ class UserService
 
         $body = $request::body();
 
-        $validate = Validator::validateUpdate($body);
+        $validate = Validator::validateUpdateUser($body);
+
+        if (array_key_exists('error', $validate)) {
+            return $response::json(400, $validate);
+        }
 
         $update_user = User::update($validate['name'], $user->id);
 

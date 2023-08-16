@@ -21,13 +21,13 @@ class Book extends Database
         }
     }
 
-    public static function fetchByID($id)
+    public static function fetchByID($id, $user_id)
     {
         $pdo = self::getConnection();
 
         try {
-            $stm = $pdo->prepare("SELECT * FROM books WHERE id = ?");
-            $stm->execute([$id]);
+            $stm = $pdo->prepare("SELECT * FROM books WHERE id = ? AND user_id = ?");
+            $stm->execute([$id, $user_id]);
 
             $book = $stm->fetchAll(\PDO::FETCH_ASSOC);
 

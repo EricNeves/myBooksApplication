@@ -6,7 +6,9 @@ class Validator
 {
     public static function validateSignUp($body)
     {
-        if (!isset($body->name) || empty($body->name)) {
+        if ($body == null) {
+            return ['error' => 'Name|Email|Password is required!'];
+        } else if (!isset($body->name) || empty($body->name)) {
             return ['error' => 'Name field is required!'];
 
         } else if (!isset($body->email) || empty($body->email)) {
@@ -27,9 +29,11 @@ class Validator
         }
     }
 
-    public static function validateUpdate($body)
+    public static function validateUpdateUser($body)
     {
-        if (!isset($body->name) || empty($body->name)) {
+        if ($body == null) {
+            return ['error' => 'Name|Password is required!'];
+        } else if (!isset($body->name) || empty($body->name)) {
             return ['error' => 'Name field is required!'];
 
         } else if (!isset($body->password) || empty($body->password)) {
@@ -38,6 +42,24 @@ class Validator
         } else {
             return [
                 'name' => $body->name,
+                'password' => $body->password
+            ];
+        }
+    }
+
+    public static function validateLogin($body)
+    {
+        if ($body == null) {
+            return ['error' => 'Email|Password is required!'];
+        } else if (!isset($body->email) || empty($body->email)) {
+            return ['error' => 'Name field is required!'];
+
+        } else if (!isset($body->password) || empty($body->password)) {
+            return ['error' => 'Password field is required!'];
+
+        } else {
+            return [
+                'name' => $body->email,
                 'password' => $body->password
             ];
         }

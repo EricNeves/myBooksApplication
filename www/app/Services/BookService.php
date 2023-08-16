@@ -8,6 +8,7 @@ use App\Http\Authorization;
 use App\Utils\Validator;
 use App\Utils\JWT;
 use App\Models\Book;
+use App\Utils\ResizeImage;
 
 class BookService
 {
@@ -56,9 +57,36 @@ class BookService
 
         $user = $this->isAuthenticated;
 
+        $book = Book::fetchByID(1, $user->id);
+
+        if (empty($book)) {
+            return $response::json(404, ['error' => 'Book not found!']);
+        }
+
         return $response::json(200, [
-            'result' => Book::fetchByID(1)
+            'result' => $book
         ]);
+    }
+
+    public function store(Request $request, Response $response)
+    {
+        if ($request::method() != 'POST') {
+            return $response::json(405, ['error' => 'Method not allowed']);
+        }
+
+        if (!$this->isAuthenticated) {
+            return $response::json(401, [
+                'error' => 'Unauthorized, verify: Bearer + Token JWT'
+            ]);
+        }
+
+        $user = $this->isAuthenticated;
+
+        $body = $request::body();
+
+        $result = ResizeImage::resize($body->image, 500);
+
+        return $response::json(200, $result);
     }
 
     public function update() {}

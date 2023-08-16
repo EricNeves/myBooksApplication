@@ -41,7 +41,7 @@ class User extends Database
         } catch (\Throwable $err) {
             $error = match ($err->getCode()) {
                 '23505' => ['error' => 'Email already exists!'],
-                default => ['error' => 'Sorry, something went wrong!']
+                default => ['error' => 'Sorry, something went wrong! Table: users']
             };
 
             return $error;
