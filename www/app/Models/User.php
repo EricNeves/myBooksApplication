@@ -81,7 +81,11 @@ class User extends Database
             $stm = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
             $stm->execute([$name, $id]);
 
-            return true;
+            if ($stm->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
 
         } catch (\Throwable $err) {
             return ['error' => 'Sorry, something went wrong! Table: users'];

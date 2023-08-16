@@ -2,6 +2,7 @@ version: '3'
 services:
   www:
     build: .
+    container_name: api
     ports:
       - 8000:80
     volumes:

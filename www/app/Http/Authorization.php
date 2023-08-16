@@ -16,6 +16,10 @@ class Authorization
 
         $token = explode(' ', $authorization);
 
+        if (count($token) < 2) {
+            return false;
+        }
+
         if ($token[0] !== 'Bearer') {
             return false;
         }

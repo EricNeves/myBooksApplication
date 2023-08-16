@@ -64,4 +64,26 @@ class Validator
             ];
         }
     }
+
+    public static function validateCreateBook($body)
+    {
+        if ($body == null) {
+            return ['error' => 'Title|Description|Image is required!'];
+        } else if (!isset($body->title) || empty($body->title)) {
+            return ['error' => 'Title field is required!'];
+
+        } else if (!isset($body->description) || empty($body->description)) {
+            return ['error' => 'Description field is required!'];
+
+        } else if (!isset($body->image) || empty($body->image)) {
+            return ['error' => 'Image field is required!'];
+
+        } else {
+            return [
+                'title' => $body->title,
+                'description' => $body->description,
+                'image' => $body->image
+            ];
+        }
+    }
 }

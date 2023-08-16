@@ -9,6 +9,8 @@
  * @Headers
  */
 
+error_reporting(0);
+
 header('Content-type: application/json');
 
 require_once __DIR__ . '/vendor/autoload.php';

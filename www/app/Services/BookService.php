@@ -39,12 +39,63 @@ class BookService
 
         $user = $this->isAuthenticated;
 
-        return $response::json(200, [
-            'result' => Book::fetch($user->id)
+        $books = Book::fetch($user->id);
+
+        foreach ($books as $book) {
+            $allBooks = $book;
+            $allBooks['url'] = $_ENV['BASE_URL']."books/image/{$book['id']}";
+            $returnBooks[] = $allBooks;
+        }
+
+        return $response::json(200, ['data' => $returnBooks]);
+    }
+
+    public function store(Request $request, Response $response)
+    {
+        if ($request::method() != 'POST') {
+            return $response::json(405, ['error' => 'Method not allowed!']);
+        }
+
+        if (!$this->isAuthenticated) {
+            return $response::json(401, [
+                'error' => 'Unauthorized, verify: Bearer + Token JWT!'
+            ]);
+        }
+
+        $user = $this->isAuthenticated;
+
+        $body = $request::body();
+
+        $validate = Validator::validateCreateBook($body);
+
+        if (array_key_exists('error', $validate)) {
+            return $response::json(400, $validate);
+        }
+
+        $result = ResizeImage::resize($validate['image'], 400);
+
+        if (array_key_exists('error', $result)) {
+            return $response::json(400, $result);
+        }
+
+        $create_book = Book::create(
+            $validate['title'], $validate['description'], $result['image'], $user->id
+        );
+
+        if (!$create_book) {
+            return $response::json(400, ['error' => [
+                'Sorry, something wemt wrong!',
+                $create_book
+            ]]);
+        }
+
+        return $response::json(201, [
+            'success' => 'Book created successfully!'
         ]);
     }
 
-    public function listByID(Request $request, Response $response) {
+    public function image(Request $request, Response $response, $id)
+    {
         if ($request::method() != 'GET') {
             return $response::json(405, ['error' => 'Method not allowed']);
         }
@@ -57,20 +108,21 @@ class BookService
 
         $user = $this->isAuthenticated;
 
-        $book = Book::fetchByID(1, $user->id);
+        $book_id = (int) ($id[0]);
 
-        if (empty($book)) {
-            return $response::json(404, ['error' => 'Book not found!']);
-        }
+        $image_book = Book::fetchImageByID($book_id, $user->id);
 
-        return $response::json(200, [
-            'result' => $book
-        ]);
+        $image = stream_get_contents($image_book['image']);
+
+        $base64Image = preg_replace('#^data:image/[^;]+;base64,#', '', $image);
+
+        header('Content-type: image/png');
+
+        echo base64_decode($base64Image);
     }
 
-    public function store(Request $request, Response $response)
-    {
-        if ($request::method() != 'POST') {
+    public function listByID(Request $request, Response $response, $id) {
+        if ($request::method() != 'GET') {
             return $response::json(405, ['error' => 'Method not allowed']);
         }
 
@@ -82,11 +134,24 @@ class BookService
 
         $user = $this->isAuthenticated;
 
-        $body = $request::body();
+        $book = Book::fetchBookByID($id[0], $user->id);
 
-        $result = ResizeImage::resize($body->image, 500);
+        if (empty($book)) {
+            return $response::json(404, ['error' => 'Book not found!']);
+        }
 
-        return $response::json(200, $result);
+        $result = [
+            'id'          => $book['id'],
+            'title'       => $book['title'],
+            'description' => $book['description'],
+            'created_at'  => $book['created_at'],
+            'image'       => $_ENV['BASE_URL']."books/image/{$book['id']}",
+            'user_id'     => $book['user_id']
+        ];
+
+        return $response::json(200, [
+            'data' => $result
+        ]);
     }
 
     public function update() {}

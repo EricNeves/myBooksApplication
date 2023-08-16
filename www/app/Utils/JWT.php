@@ -21,6 +21,10 @@ class JWT
 
     public static function validate($token)
     {
+        if (!isset($token) || empty($token)) {
+            return false;
+        }
+
         $token = explode('.', $token);
 
         if (count($token) < 3) {

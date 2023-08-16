@@ -21,7 +21,52 @@ class Book extends Database
         }
     }
 
-    public static function fetchByID($id, $user_id)
+    public static function fetchImageByID($book_id, $user_id)
+    {
+        $pdo = self::getConnection();
+
+        try {
+            $stm = $pdo->prepare("SELECT image FROM images WHERE book_id = ? AND user_id = ?");
+            $stm->execute([$book_id, $user_id]);
+
+            $book = $stm->fetch(\PDO::FETCH_ASSOC);
+            return $book;
+        } catch (\Throwable $err) {
+            return ['error' => 'Sorry, something went wrong! Table: books'];
+        }
+    }
+
+    public static function create($title, $description, $image, $user_id)
+    {
+        $pdo = self::getConnection();
+
+        try {
+
+            $pdo->beginTransaction();
+
+            $stm = $pdo->prepare("
+                INSERT INTO books (title, description, created_at, user_id) VALUES (?, ?, ?, ?) 
+            ");
+            $stm->execute([$title, $description, date('Y-m-d H:m:s'), $user_id]);
+
+            $stm_book = $pdo->prepare("
+                INSERT INTO images (image, created_at, book_id, user_id) VALUES (?, ?, ?, ?)
+            ");
+            $stm_book->execute([$image, date('Y-m-d H:m:s'), $pdo->lastInsertId(), $user_id]);
+
+            if ($pdo->commit()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\Throwable $err) {
+
+            $pdo->rollBack();
+            return ['error' => 'Sorry, something went wrong! Table: books'];
+        }
+    }
+
+    public static function fetchBookByID($id, $user_id)
     {
         $pdo = self::getConnection();
 
@@ -29,7 +74,7 @@ class Book extends Database
             $stm = $pdo->prepare("SELECT * FROM books WHERE id = ? AND user_id = ?");
             $stm->execute([$id, $user_id]);
 
-            $book = $stm->fetchAll(\PDO::FETCH_ASSOC);
+            $book = $stm->fetch(\PDO::FETCH_ASSOC);
 
             return $book;
         } catch (\Throwable $err) {
@@ -68,5 +113,5 @@ class Book extends Database
             return ['error' => 'Sorry, something went wrong! Table: books'];
         }
     }
-    
+
 }

@@ -16,6 +16,7 @@ class Router
 
             '/books'             => 'BookService@index',
             '/books/create'      => 'BookService@store',
+            '/books/image/{id}'  => 'BookService@image',
             '/books/{id}/list'   => 'BookService@listByID',
             '/books/{id}/update' => 'BookService@update',
             '/books/{id}/remove' => 'BookService@remove'
