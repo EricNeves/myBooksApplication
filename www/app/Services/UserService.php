@@ -13,13 +13,14 @@ class UserService
 {
     private $isAuthenticated;
 
-    public function __construct() 
+    public function __construct()
     {
         $jwt = Authorization::getToken();
 
         $isValidJWT = JWT::validate($jwt);
 
-        if (!$isValidJWT) $this->isAuthenticated = false;
+        if (!$isValidJWT)
+            $this->isAuthenticated = false;
 
         $this->isAuthenticated = $isValidJWT;
     }
@@ -80,7 +81,7 @@ class UserService
 
         $body = $request::body();
 
-        $validate  = Validator::validateLogin($body);
+        $validate = Validator::validateLogin($body);
 
         if (array_key_exists('error', $validate)) {
             return $response::json(400, $validate);
@@ -130,10 +131,15 @@ class UserService
             return $response::json(400, [
                 'error' => 'Sorry, something went wrong!'
             ]);
+
+        } else if (isset($update_user['error'])) {
+            return $response::json(400, [
+                'error' => $update_user['error']
+            ]);
         }
 
         return $response::json(202, [
-            'success' => 'User updated successfully'
+            'success' => 'Book updated successfully!'
         ]);
     }
 }

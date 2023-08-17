@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS images (
   image BYTEA NOT NULL,
   created_at TIMESTAMP NOT NULL,
   book_id INT NOT NULL,
-  user_id INT NOY NULL,
+  user_id INT NOT NULL,
   FOREIGN KEY (book_id) REFERENCES books (id),
   FOREIGN KEY (user_id) REFERENCES users (id)
 );

@@ -41,6 +41,10 @@ class BookService
 
         $books = Book::fetch($user->id);
 
+        if (!$books) {
+            return $response::json(400, ['data' => []]);
+        } 
+
         foreach ($books as $book) {
             $allBooks = $book;
             $allBooks['url'] = $_ENV['BASE_URL']."books/image/{$book['id']}";
@@ -83,9 +87,13 @@ class BookService
         );
 
         if (!$create_book) {
-            return $response::json(400, ['error' => [
-                'Sorry, something wemt wrong!'
-            ]]);
+            return $response::json(400, [
+                'error' => 'Sorry, something wemt wrong!' 
+            ]);
+        } else if (isset($create_book['error'])) {
+            return $response::json(400, [
+                'error' => 'Sorry, something wemt wrong!' 
+            ]);
         }
 
         return $response::json(201, [
@@ -190,9 +198,9 @@ class BookService
         );
 
         if (!$update_book) {
-            return $response::json(400, ['error' => [
-                'Sorry, something wemt wrong!'
-            ]]);
+            return $response::json(400, ['error' => "Book not found!"]);
+        } else if (isset($update_book['error'])){
+            return $response::json(400, ['error' => $update_book['error']]);
         }
 
         return $response::json(202, [
@@ -214,6 +222,16 @@ class BookService
 
         $user = $this->isAuthenticated;
 
-        
+        $delete_book = Book::remove((int) $id[0], $user->id);
+
+        if (!$delete_book) {
+            return $response::json(400, ['error' => "Book not found!"]);
+        } else if (isset($delete_book['error'])){
+            return $response::json(400, ['error' => $delete_book['error']]);
+        }
+
+        return $response::json(200, [
+            'success' => 'Book deleted successfully!'
+        ]);
     }
 }
