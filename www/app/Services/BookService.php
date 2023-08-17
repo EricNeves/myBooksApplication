@@ -42,7 +42,7 @@ class BookService
         $books = Book::fetch($user->id);
 
         if (!$books) {
-            return $response::json(400, ['data' => []]);
+            return $response::json(200, ['data' => []]);
         } 
 
         foreach ($books as $book) {

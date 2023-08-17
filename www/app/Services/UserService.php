@@ -139,7 +139,7 @@ class UserService
         }
 
         return $response::json(202, [
-            'success' => 'Book updated successfully!'
+            'success' => 'User updated successfully!'
         ]);
     }
 }
