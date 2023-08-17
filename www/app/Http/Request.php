@@ -16,10 +16,10 @@ class Request
         $jsonBody = json_decode(file_get_contents('php://input', true));
 
         $data = match ($method) {
-            'GET'    => $_GET,
-            'POST'   => $jsonBody,
-            'PUT'    => $jsonBody,
-            'DELETE' => $jsonBody
+            'GET'     => $_GET,
+            'POST'    => $jsonBody,
+            'PUT'     => $jsonBody,
+            'DELETE'  => $jsonBody
         };
 
         return $data;

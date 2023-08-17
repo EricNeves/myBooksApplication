@@ -106,7 +106,9 @@ class UserService
     public function update(Request $request, Response $response)
     {
         if ($request::method() != 'PUT') {
-            return $response::json(405, ['error' => 'Method not allowed']);
+            return $response::json(405, [
+                'error' => 'Method not allowed'
+            ]);
         }
 
         if (!$this->isAuthenticated) {

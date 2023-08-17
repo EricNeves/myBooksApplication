@@ -57,7 +57,9 @@ class BookService
     public function store(Request $request, Response $response)
     {
         if ($request::method() != 'POST') {
-            return $response::json(405, ['error' => 'Method not allowed!']);
+            return $response::json(405, [
+                'error' => 'Method not allowed!'
+            ]);
         }
 
         if (!$this->isAuthenticated) {
