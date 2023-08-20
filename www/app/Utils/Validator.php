@@ -52,7 +52,7 @@ class Validator
         if ($body == null) {
             return ['error' => 'Email|Password is required!'];
         } else if (!isset($body->email) || empty($body->email)) {
-            return ['error' => 'Name field is required!'];
+            return ['error' => 'Email field is required!'];
 
         } else if (!isset($body->password) || empty($body->password)) {
             return ['error' => 'Password field is required!'];
