@@ -94,7 +94,7 @@ class UserService
         }
 
         if (!$auth) {
-            return $response::json(405, ['error' => 'Invalid email or password!']);
+            return $response::json(400, ['error' => 'Invalid email or password!']);
         }
 
         return $response::json(200, [
