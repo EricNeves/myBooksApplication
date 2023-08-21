@@ -1,13 +1,21 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { BrowserRouter } from 'react-router-dom'
 
-import Auth from './components/Auth/index'
-import Register from './components/Register'
+import './assets/main.css'
+
+import Routes from './Routes'
+import {
+  AuthProvider
+} from './contexts/AuthContext'
 
 const App = () => {
   return (
     <ChakraProvider>
-      {/*<Auth */}
-      {/*<Register />*/}
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </AuthProvider>
     </ChakraProvider>
   )
 }
