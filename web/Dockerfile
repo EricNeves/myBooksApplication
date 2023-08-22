@@ -8,6 +8,6 @@ RUN npm install -g npm && npm install -g pnpm && pnpm i
 
 COPY . .
 
-EXPOSE 3030
+EXPOSE 3000
 
 CMD [ "pnpm", "run", "dev" ]
