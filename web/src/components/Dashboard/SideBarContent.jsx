@@ -17,14 +17,13 @@ import { Link } from 'react-router-dom'
 
 import NavItem from './NavItem'
 
-const LinkItems = [
-  { name: 'Home', icon: DragHandleIcon, href: '/dashboard' },
-  { name: 'Profile', icon: SettingsIcon, href: '/dashboard/profile' },
-  { name: 'Add Book', icon: AddIcon, href: '/dashboard/createbook' },
-  { name: 'Logout', icon: UnlockIcon, href: '/dashboard/logout' },
-]
+import { Context } from '../../contexts/AuthContext'
+import { useContext } from 'react'
 
 const SidebarContent = ({ onClose, ...rest }) => {
+
+  const { handleLogout } = useContext(Context)
+
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -40,13 +39,29 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
-      {LinkItems.map((link) => (
-        <Link key={link.name} to={link.href}>
-          <NavItem key={link.name} icon={link.icon}>
-            {link.name}
-          </NavItem>
-        </Link>
-      ))}
+      <Link to='/dashboard'>
+        <NavItem icon={DragHandleIcon}>
+          Home
+        </NavItem>
+      </Link>
+
+      <Link to='/dashboard/profile'>
+        <NavItem icon={SettingsIcon}>
+          Profile
+        </NavItem>
+      </Link>
+
+      <Link to='/dashboard/createbook'>
+        <NavItem icon={AddIcon}>
+          Add Book
+        </NavItem>
+      </Link>
+
+      <Link onClick={handleLogout}>
+        <NavItem icon={UnlockIcon}>
+          Logout
+        </NavItem>
+      </Link>
     </Box>
   )
 }

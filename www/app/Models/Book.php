@@ -21,13 +21,13 @@ class Book extends Database
         }
     }
 
-    public static function fetchImageByID($book_id, $user_id)
+    public static function fetchImageByID($book_id)
     {
         $pdo = self::getConnection();
 
         try {
-            $stm = $pdo->prepare("SELECT image FROM images WHERE book_id = ? AND user_id = ?");
-            $stm->execute([$book_id, $user_id]);
+            $stm = $pdo->prepare("SELECT image FROM images WHERE book_id = ?");
+            $stm->execute([$book_id]);
 
             $book = $stm->fetch(\PDO::FETCH_ASSOC);
             return $book;

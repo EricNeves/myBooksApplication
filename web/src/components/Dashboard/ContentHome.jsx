@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardBody,
+  Text,
   Heading,
   Image,
   Stack,
@@ -27,43 +28,51 @@ const ContentHome = () => {
       withCredentials: 'true',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MX0.vA2zHLz_t717ZlMyi5g1ePJGyOUbo8vx8fUPLwjwKUc'
+        'Authorization': authorization
       },
     }
-    
+
     fetch('http://localhost:8000/books', config)
       .then(res => res.json())
-      .then(console.log)
+      .then(res => setBooks(res.data))
   }
 
   useEffect(() => {
-    fetchBooks()
-  }, [])
+    if (authorization) {
+      fetchBooks()
+    }
+  }, [authorization])
 
   return (
     <Center>
       <Box className='booksbox' >
-        <Card maxW='lg'>
-          <CardBody>
-            <Image
-              src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-              alt='Green double couch with wooden legs'
-              borderRadius='lg'
-            />
-            <Stack mt='6' spacing='3'>
-              <Heading fontWeight={'medium'} size='sm'>Living room Sofa</Heading>
-            </Stack>
+        {books.map(book => (
+          <Card maxW='lg' key={book.id}>
+            <CardBody>
+              <Image
+                src={book.url}
+                alt={book.title}
+                height={'200px'}
+                objectFit={'cover'}
+                borderRadius='lg'
+              />
+              <Stack mt='6' spacing='3'>
+                <Heading fontWeight={'semibold'} size='xs'>{book.title}</Heading>
+              </Stack>
 
-            <Button
-              variant='outline' mt='3'
-              size={'sm'}
-              _hover={{ background: 'blue.500', color: 'white' }}
-              colorScheme='blue'
-            >
-              Read More...
-            </Button>
-          </CardBody>
-        </Card>
+              <Text mt={'2'} fontSize={'small'} color={'gray.700'}>{book.created_at}</Text>
+
+              <Button
+                variant='outline' mt='3'
+                size={'sm'}
+                _hover={{ background: 'blue.500', color: 'white' }}
+                colorScheme='blue'
+              >
+                View More...
+              </Button>
+            </CardBody>
+          </Card>
+        ))}
       </Box>
     </Center>
   )

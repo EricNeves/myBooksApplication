@@ -109,17 +109,9 @@ class BookService
             return $response::json(405, ['error' => 'Method not allowed']);
         }
 
-        if (!$this->isAuthenticated) {
-            return $response::json(401, [
-                'error' => 'Unauthorized, verify: Bearer + Token JWT'
-            ]);
-        }
-
-        $user = $this->isAuthenticated;
-
         $book_id = (int) ($id[0]);
 
-        $image_book = Book::fetchImageByID($book_id, $user->id);
+        $image_book = Book::fetchImageByID($book_id);
 
         $image = stream_get_contents($image_book['image']);
 
