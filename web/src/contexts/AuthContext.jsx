@@ -9,14 +9,16 @@ const AuthProvider = ({ children }) => {
   const [result, setResult] = useState("")
   const [loading, setLoading] = useState(false)
   const [authorization, setAuthorization] = useState("")
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState()
 
   useEffect(() => {
     const token = localStorage.getItem('jwt')
 
     if (token) {
+      setAuthenticated({
+        auth: true
+      })
       setAuthorization(`Bearer ${JSON.parse(token)}`)
-      setAuthenticated(true)
     } 
   },[])
 
@@ -37,9 +39,12 @@ const AuthProvider = ({ children }) => {
     
     setResult(response)
     setLoading(false)
-    
+
+    setAuthenticated({
+      auth: true
+    })
+  
     response?.error ? null : window.location.href = '/dashboard' 
-    setAuthenticated(true)
   }
 
   const handleLogout = () => {
