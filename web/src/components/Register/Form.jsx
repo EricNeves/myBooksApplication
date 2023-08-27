@@ -50,7 +50,7 @@ const Form = ({ updatedField, loading, handleSumbit, result }) => {
             </FormControl>
             <FormControl id="email" isRequired>
               <FormLabel>Email address</FormLabel>
-              <Input name="email" onChange={updatedField} type="email" />
+              <Input name="email" autoComplete='off' onChange={updatedField} type="email" />
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
