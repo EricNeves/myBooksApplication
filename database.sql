@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP NOT NULL
 );
 
+/*
+ @Table books
+*/
 CREATE TABLE IF NOT EXISTS books (
   id SERIAL PRIMARY KEY,
   title VARCHAR (155) NOT NULL,
@@ -18,6 +21,9 @@ CREATE TABLE IF NOT EXISTS books (
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+/*
+ @Table images
+*/
 CREATE TABLE IF NOT EXISTS images (
   id SERIAL PRIMARY KEY,
   image BYTEA NOT NULL,
