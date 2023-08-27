@@ -21,6 +21,7 @@ export default function SignupCard() {
       setLoading(false)
     } catch (err) {
       setResult(err?.response?.data)
+      setLoading(false)
     }
   }
 
