@@ -12,18 +12,14 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/EricNeves/myBooksApplication?style=flat-square&logo=github" alt="Github">
-  <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
-  <a href="https://saythanks.io/to/bullredeyes@gmail.com">
-      <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
-  </a>
-  <a href="https://www.paypal.me/AmitMerchant">
-    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
-  </a>
+  <img src="https://img.shields.io/github/languages/top/EricNeves/myBooksApplication?style=flat-square&logo=npm">
+  <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
+  <img src="https://img.shields.io/github/license/EricNeves/myBooksApplication?style=flat-square&logo=github&color=red">
 </p>
 
 ![screenshot](github/mybookapp.gif)
 
-### Description
+### Description💡
 Aplicação <b>Full Stack</b> que consiste em <b>ler</b>, <b>criar</b>, <b>editar</b> e <b>deletar</b> livros pessoais, assim também como <b>modificar</b> dados do usuário.
 
 A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiente. Quanto ao restante, utiliza-se recursos do próprio PHP, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> e muito mais.
@@ -32,7 +28,7 @@ No frontend foi utilizado o <b>ReactJS</b> para componentizar a aplicação, tra
 
 Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos valiosos para a execução de toda a aplicação.
 
-### Features
+### Features 💿
 
 * <b>API</b>
   - PHP - v8.1
@@ -43,6 +39,7 @@ Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos v
    - JWT Auth
    - GD - Resize Image
    - PDO | PDO Psql 
+   - Upload Image - BLOB (Binary Large Object)
    - Cors
 * <b>Database</b>
   - PostgreSQL
@@ -57,7 +54,7 @@ Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos v
 * <b>Devops</b>:
   - Docker
 
-### How to use
+### How to use 💻
 
 Para executar a aplicação serão necessários alguns passos importantes.
 
@@ -81,7 +78,7 @@ $ docker-compose -f www/docker-compose.yml up -d --build && docker-compose -f we
 
 ```
 
-### Application Process
+### Application Process ⚙️
 
 * <b>API</b>
   - localhost:8181
@@ -90,9 +87,20 @@ $ docker-compose -f www/docker-compose.yml up -d --build && docker-compose -f we
 * <b>Web</b>
   - localhost:3131
 
-O proximo passo será copiar as informações que estão dentro do arquivo <b>database.sql</b>, que se encontra na raiz do projeto e posteriormente acessar o Adminer (<b>localhost:8282</b>). 
+O proximo passo será copiar as informações que estão dentro do arquivo <b>database.sql</b> que se encontra na raiz do projeto e posteriormente acessar o Adminer (<b>localhost:8282</b>). 
 
 Obs: password: <b>root</b>
 
 ![Adminer](github/adminer.png)
 
+Após isso procure por SQL command e execute as informações copiadas do arquivo <b>database.sql</b>.
+
+Depois de todo o processo, acesse <b>localhost:3131</b> para consumir toda a aplicação.
+
+### License 📃
+
+<img src="https://img.shields.io/github/license/EricNeves/myBooksApplication?style=flat-square&logo=github&color=red">
+---
+
+### Author 🧑‍💻
+<a href="https://www.instagram.com/ericneves_dev/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a> <a href="https://linkedin.com/in/ericnevesrr"> <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
