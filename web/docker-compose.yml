@@ -3,7 +3,7 @@ services:
   web:
     container_name: web
     ports:
-      - '3000:3000'
+      - '3131:3131'
     restart: always
     build:
       context: .
