@@ -21,7 +21,7 @@
 ### Description💡
 Aplicação <b>Full Stack</b> que consiste em <b>ler</b>, <b>criar</b>, <b>editar</b> e <b>deletar</b> livros pessoais, assim também como <b>modificar</b> dados do usuário.
 
-A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiente. Quanto ao restante, utiliza-se recursos do próprio <b>PHP</b>, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> e muito mais.
+A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiente. Quanto ao restante, utiliza-se recursos do próprio <b>PHP</b>, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> Transactions SQL e muito mais.
 
 No <b>frontend</b> foi utilizado o <b>ReactJS</b> para componentizar a aplicação, trazendo também diversos recursos interessantes como <b>useState</b>, <b>useContext</b>, <b>React Router</b>, UI com <b>Chakra UI</b>, <b>Vite</b> e entre outros.
 
@@ -38,10 +38,12 @@ Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos v
    - JWT Auth
    - GD - Resize Image
    - PDO | PDO Pgsql 
-   - Upload Image - BLOB (Binary Large Object)
+   - Upload Image
    - Cors
 * <b>Database</b>
   - PostgreSQL
+     - BLOB (Binary Large Object)
+     - Transactions
 * <b>Web</b>:
     - ReactJS - Latest
       - Vite
