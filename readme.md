@@ -13,7 +13,6 @@
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/EricNeves/myBooksApplication?style=flat-square&logo=github" alt="Github">
   <img src="https://img.shields.io/github/languages/top/EricNeves/myBooksApplication?style=flat-square&logo=npm">
-  <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
   <img src="https://img.shields.io/github/license/EricNeves/myBooksApplication?style=flat-square&logo=github&color=red">
 </p>
 
@@ -22,9 +21,9 @@
 ### Description💡
 Aplicação <b>Full Stack</b> que consiste em <b>ler</b>, <b>criar</b>, <b>editar</b> e <b>deletar</b> livros pessoais, assim também como <b>modificar</b> dados do usuário.
 
-A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiente. Quanto ao restante, utiliza-se recursos do próprio PHP, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> e muito mais.
+A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiente. Quanto ao restante, utiliza-se recursos do próprio <b>PHP</b>, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> e muito mais.
 
-No frontend foi utilizado o <b>ReactJS</b> para componentizar a aplicação, trazendo também diversos recursos interessantes, como UI com <b>Chakra UI</b>, <b>React Router</b>, <b>Vite</b> e entre outros.
+No <b>frontend</b> foi utilizado o <b>ReactJS</b> para componentizar a aplicação, trazendo também diversos recursos interessantes, como UI com <b>Chakra UI</b>, <b>React Router</b>, <b>Vite</b> e entre outros.
 
 Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos valiosos para a execução de toda a aplicação.
 
@@ -35,10 +34,10 @@ Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos v
    - Composer | psr-4
    - Routes
    - Dependency Injection
-   - Env (vlucas/phpdotenv) - v5.5
+   - env (vlucas/phpdotenv) - v5.5
    - JWT Auth
    - GD - Resize Image
-   - PDO | PDO Psql 
+   - PDO | PDO Pgsql 
    - Upload Image - BLOB (Binary Large Object)
    - Cors
 * <b>Database</b>
@@ -93,7 +92,7 @@ Obs: password: <b>root</b>
 
 ![Adminer](github/adminer.png)
 
-Após isso procure por SQL command e execute as informações copiadas do arquivo <b>database.sql</b>.
+Após isso procure por <b>SQL command</b> e execute as informações copiadas do arquivo <b>database.sql</b>.
 
 Depois de todo o processo, acesse <b>localhost:3131</b> para consumir toda a aplicação.
 
