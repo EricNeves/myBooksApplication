@@ -127,7 +127,11 @@ class UserService
             return $response::json(400, $validate);
         }
 
-        $update_user = User::update($validate['name'], $user->id);
+        $update_user = User::update(
+            $validate['name'],
+            password_hash($validate['password'], PASSWORD_DEFAULT),
+            $user->id
+        );
 
         if (!$update_user) {
             return $response::json(400, [

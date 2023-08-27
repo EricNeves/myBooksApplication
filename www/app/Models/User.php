@@ -73,13 +73,13 @@ class User extends Database
         }
     }
 
-    public static function update($name, $id)
+    public static function update($name, $password, $id)
     {
         $pdo = self::getConnection();
 
         try {
-            $stm = $pdo->prepare("UPDATE users SET name = ? WHERE id = ?");
-            $stm->execute([$name, $id]);
+            $stm = $pdo->prepare("UPDATE users SET name = ?, password = ? WHERE id = ?");
+            $stm->execute([$name, $password, $id]);
 
             if ($stm->rowCount() > 0) {
                 return true;
