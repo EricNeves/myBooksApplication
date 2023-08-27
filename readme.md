@@ -7,5 +7,62 @@
 </h1>
 
 <h4 align="center">
-  Aplicação FullStack desenvolvida com PHP e ReactJS
+  Aplicação Full Stack desenvolvida com PHP e ReactJS.
 </h4> 
+
+<p align="center">
+  <img src="https://img.shields.io/github/last-commit/EricNeves/myBooksApplication?style=flat-square&logo=github" alt="Github">
+  <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
+  <a href="https://saythanks.io/to/bullredeyes@gmail.com">
+      <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
+  </a>
+  <a href="https://www.paypal.me/AmitMerchant">
+    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
+  </a>
+</p>
+
+![screenshot](github/mybookapp.gif)
+
+### Description
+Aplicação <b>Full Stack</b> que consiste em <b>ler</b>, <b>criar</b>, <b>editar</b> e <b>deletar</b> livros pessoais, assim também como <b>modificar</b> dados do usuário.
+
+A <b>API</b> foi desenvolvida com <b>PHP</b>, fazendo somente a utilização de uma biblioteca externa para variáveis de ambiemte. Quanto ao restante, utiliza-se recursos do próprio PHP, como a <b>libary GD</b> para redimensionar as images, <b>Rotas</b>, <b>URL amigável</b>, <b>JWT</b>, <b>Injenção de Dependência</b>, <b>PostgreSQL</b> com <b>PDO</b> e muito mais.
+
+No frontend foi utilizado o <b>ReactJS</b> para componentizar a aplicação, trazendo também diversos recursos interessantes, como UI com <b>Chakra UI</b>, <b>React Router</b>, <b>Vite</b> e entre outros.
+
+Para organizar o projeto, fora usado o <b>Docker</b>, que traz muitos recursos valiosos para a execução de toda a aplicação.
+
+### Features
+
+* API
+  - PHP - v8.1
+   - Composer | psr-4
+   - Routes
+   - Dependency Injection
+   - Env (vlucas/phpdotenv) - v5.5
+   - JWT Auth
+   - GD - Resize Image
+   - PDO | PDO Psql 
+   - Cors
+* Database
+  - PostgreSQL
+* Web:
+    - ReactJS - Latest
+      - Vite
+      - pnpm
+      - UI - Chakra UI | react / icons
+      - Axios
+      - React Router
+      - Local Storage
+* Devops:
+  - Docker
+
+### How to use
+
+Para executar a aplicação serão necessários alguns passos importantes.
+
+1º Passo
+
+```sh
+
+```
