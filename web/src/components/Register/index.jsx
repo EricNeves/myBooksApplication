@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Form from './Form'
+import { api } from '../../api'
 
 export default function SignupCard() {
   const [formData, setFormData] = useState({
@@ -11,17 +12,16 @@ export default function SignupCard() {
 
   const handleSumbit = async () => {
     setLoading(true)
-  
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(formData)
+
+    try {
+      const request = await api.post('/users/create', formData)
+      const response = await request.data
+
+      setResult(response)
+      setLoading(false)
+    } catch (err) {
+      setResult(err?.response?.data)
     }
-
-    const request = await fetch('http://localhost:8000/users/create', options)
-    const response = await request.json()
-
-    setResult(response)
-    setLoading(false)
   }
 
   const updatedField = event => {
