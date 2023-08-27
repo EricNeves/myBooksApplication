@@ -1,64 +1,49 @@
-import { useEffect } from 'react'
 import {
-  createContext, useState
+  createContext, useState, useEffect
 } from 'react'
+
+import { api } from '../api'
 
 const Context = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [result, setResult] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [authorization, setAuthorization] = useState("")
-  const [authenticated, setAuthenticated] = useState()
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem('jwt')
 
-    if (token) {
-      setAuthenticated({
-        auth: true
-      })
-      setAuthorization(`Bearer ${JSON.parse(token)}`)
+    if(token) {
+      api.defaults.headers.Authorization = JSON.parse(token)
+      setUser(token)
     } 
-  },[])
+  }, [])
 
-  const handleLogin = async (data) => {
-    setLoading(true)
+  const signIn = async ({ email, password }) => {
+    const request = await api.post('/users/auth', { email, password })
 
-    const options = {
-      method: 'POST',
-      body: JSON.stringify(data)
+    if (request.data && request.data.jwt) {
+      setToken(request.data.jwt)
+      setUser(true)
+      return true
     }
 
-    const request = await fetch('http://localhost:8000/users/auth', options)
-    const response = await request.json()
-
-    const { jwt } = response 
-
-    localStorage.setItem('jwt', JSON.stringify(jwt))
-    
-    setResult(response)
-    setLoading(false)
-
-    setAuthenticated({
-      auth: true
-    })
-  
-    response?.error ? null : window.location.href = '/dashboard' 
+    return false
   }
 
-  const handleLogout = () => {
-    setAuthenticated(false)
+  const signOut = () => {
+    setUser(null)
+    localStorage.removeItem('jwt')
+    api.defaults.headers.Authorization = undefined
+    return true
+  }
 
-    localStorage.setItem('jwt', null)
-    window.location.href = '/'
+  const setToken = token => {
+    localStorage.setItem('jwt', JSON.stringify(`Bearer ${token}`))
+    api.defaults.headers.Authorization = `Bearer ${token}`
   }
 
   return (
-    <Context.Provider value={{ 
-      handleLogin, result, loading, authorization,
-      authenticated, handleLogout
-     }}>
+    <Context.Provider value={{ signIn, signOut, user }}>
       {children}
     </Context.Provider>
   )

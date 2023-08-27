@@ -1,37 +1,55 @@
 import {
-  Routes, Route, Navigate
+  Routes, Route
 } from 'react-router-dom'
-import { useContext } from 'react' 
+import { useContext } from 'react'
+
+import { Context } from './contexts/AuthContext'
 
 import Auth from './components/Auth'
 import Register from './components/Register'
-import Dashboard from './components/Dashboard'
-import { Context } from './contexts/AuthContext'
 
-function PrivateRouter({ children }) {
-  const { authenticated } = useContext(Context)
-  const auth = true
-  if (authenticated?.auth) {
-    return children
-  } else {
-    return <Navigate to='/' />
+import DashboardHome from './components/Dashboard/Home'
+import CreateBook from './components/Dashboard/CreateBook'
+import Profile from './components/Dashboard/Profile'
+import BookDetails from './components/Dashboard/BookDetails'
+import NotFound from './components/404'
+
+const Private = ({ children }) => {
+  const { user } = useContext(Context)
+
+  if (!user) {
+    return <Auth />
   }
+
+  return children
 }
 
-export default props => {
+export default () => {
   return (
     <Routes>
       <Route path='/' element={<Auth />} />
       <Route path='/register' element={<Register />} />
       <Route path='/dashboard' element={
-        <PrivateRouter>
-          <Dashboard />
-        </PrivateRouter>
+        <Private>
+          <DashboardHome />
+        </Private>
       } />
-      <Route path='/dashboard/profile' element={<Dashboard />} />
-      <Route path='/dashboard/createbook' element={<Dashboard />} />
-      <Route path='/dashboard/logout' element={<Dashboard />} />
-      <Route path='*' element={<Auth />} />
+      <Route path='/dashboard/profile' element={
+        <Private>
+          <Profile />
+        </Private>
+      } />
+      <Route path='/dashboard/createbook' element={
+        <Private>
+          <CreateBook />
+        </Private>
+      } />
+      <Route path='/dashboard/books/:id' element={
+        <Private>
+          <BookDetails />
+        </Private>
+      } />
+      <Route path='*' element={<NotFound title={'Page not Found'} />} />
     </Routes>
   )
 }

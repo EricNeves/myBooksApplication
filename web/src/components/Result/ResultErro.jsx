@@ -6,7 +6,7 @@ import {
 
 const ResultError = ({ msg }) => {
   return (
-    <Alert status='error'>
+    <Alert status='error' rounded={'md'}>
       <AlertIcon />
       <AlertTitle>{msg}</AlertTitle>
     </Alert>

@@ -16,13 +16,22 @@ import {
 import { Link } from 'react-router-dom'
 
 import NavItem from './NavItem'
+import Auth from '../Auth'
 
 import { Context } from '../../contexts/AuthContext'
 import { useContext } from 'react'
 
 const SidebarContent = ({ onClose, ...rest }) => {
 
-  const { handleLogout } = useContext(Context)
+  const { signOut } = useContext(Context)
+
+  const handleLogout = () => {
+    const logout = signOut()
+
+    if (logout) {
+      return <Auth />
+    }
+  }
 
   return (
     <Box

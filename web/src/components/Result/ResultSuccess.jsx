@@ -6,7 +6,7 @@ import {
 
 const ResultSuccess = ({ msg }) => {
   return (
-    <Alert status='success'>
+    <Alert status='success' rounded={'md'}>
       <AlertIcon />
       <AlertTitle>{msg}</AlertTitle>
     </Alert>
