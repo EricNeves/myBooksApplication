@@ -41,7 +41,7 @@ const BookDetails = () => {
 
   useEffect(() => {
     fetchBook()
-  }, [])
+  }, [book])
 
   return (
     <>
@@ -57,7 +57,7 @@ const BookDetails = () => {
             <Image
               objectFit='cover'
               maxW={{ base: '100%', sm: '200px' }}
-              src={book?.image} alt={book?.title}
+              src={book?.image+`?timestamp=${Date.now()}`} alt={book?.title}
             />
 
             <Stack>
