@@ -6,7 +6,7 @@ use App\Models\Database;
 
 class User extends Database
 {
-    public static function fetch(int|string $id): array
+    public static function fetch(int|string $id): mixed
     {
         $pdo = self::getConnection();
 
@@ -26,7 +26,7 @@ class User extends Database
         }
     }
 
-    public static function store(string $name, string $email, string $password): array
+    public static function store(string $name, $email, $password) : mixed
     {
         $pdo = self::getConnection();
 
