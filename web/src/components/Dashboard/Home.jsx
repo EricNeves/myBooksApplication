@@ -42,7 +42,7 @@ const ContentHome = () => {
                 <Image
                   src={book.url}
                   alt={book.title}
-                  height={'200px'}
+                  height={'300px'}
                   width={'400px'}
                   objectFit={'cover'}
                   borderRadius='lg'
