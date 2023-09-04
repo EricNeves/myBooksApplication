@@ -6,7 +6,7 @@ use App\Models\Database;
 
 class Book extends Database
 {
-    public static function fetch($id)
+    public static function fetch(int|string $id): array
     {
         $pdo = self::getConnection();
 
@@ -21,7 +21,7 @@ class Book extends Database
         }
     }
 
-    public static function fetchImageByID($book_id)
+    public static function fetchImageByID(int|string $book_id): array
     {
         $pdo = self::getConnection();
 
@@ -36,7 +36,7 @@ class Book extends Database
         }
     }
 
-    public static function create($title, $description, $image, $user_id)
+    public static function create(string $title, string $description, string $image, int|string $user_id) : mixed
     {
         $pdo = self::getConnection();
 
@@ -66,7 +66,7 @@ class Book extends Database
         }
     }
 
-    public static function fetchBookByID($id, $user_id)
+    public static function fetchBookByID(int|string $id, int|string $user_id) : array
     {
         $pdo = self::getConnection();
 
@@ -82,7 +82,7 @@ class Book extends Database
         }
     }
 
-    public static function update($title, $description, $image, $book_id, $user_id)
+    public static function update(string $title, string $description, string $image, int|string $book_id, int|string $user_id) : mixed
     {
         $pdo = self::getConnection();
 
@@ -108,7 +108,7 @@ class Book extends Database
         }
     }
 
-    public static function remove($book_id, $user_id)
+    public static function remove(int|string $book_id, int|string $user_id) : mixed
     {
         $pdo = self::getConnection();
 

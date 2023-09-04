@@ -2,9 +2,9 @@
 
 namespace App\Http;
 
-class Authorization 
+class Authorization
 {
-    public static function getToken()
+    public static function getToken(): string
     {
         $header = getallheaders();
 

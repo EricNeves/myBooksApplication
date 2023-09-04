@@ -6,7 +6,7 @@ use App\Models\Database;
 
 class User extends Database
 {
-    public static function fetch($id)
+    public static function fetch(int|string $id): array
     {
         $pdo = self::getConnection();
 
@@ -26,7 +26,7 @@ class User extends Database
         }
     }
 
-    public static function store($name, $email, $password)
+    public static function store(string $name, string $email, string $password): array
     {
         $pdo = self::getConnection();
 
@@ -48,7 +48,7 @@ class User extends Database
         }
     }
 
-    public static function login($email, $password)
+    public static function login(string $email, string $password) : mixed
     {
         $pdo = self::getConnection();
 
@@ -73,7 +73,7 @@ class User extends Database
         }
     }
 
-    public static function update($name, $password, $id)
+    public static function update(string $name, string $password, int|string $id) : mixed
     {
         $pdo = self::getConnection();
 

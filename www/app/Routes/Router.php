@@ -4,7 +4,7 @@ namespace App\Routes;
 
 class Router
 {
-    public static function routes()
+    public static function routes() : array
     {
         return [
             '/'                  => 'HomeService@index',

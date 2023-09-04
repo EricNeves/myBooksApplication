@@ -8,7 +8,7 @@ use App\Http\Response;
 
 class Core extends Router
 {
-    public static function run()
+    public static function run(): void
     {
         $url = '/';
 

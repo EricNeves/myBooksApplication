@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Database
 {
-    protected static function getConnection()
+    protected static function getConnection(): mixed
     {
         try {
             $pdo = new \PDO(
