@@ -4,12 +4,12 @@ namespace App\Http;
 
 class Request
 {
-    public static function method() : object
+    public static function method() 
     {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public static function body() : object
+    public static function body()
     {
         $method = self::method();
 
