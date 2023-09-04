@@ -4,7 +4,7 @@ namespace App\Utils;
 
 class Validator
 {
-    public static function validateSignUp($body)
+    public static function validateSignUp(mixed $body): array
     {
         if ($body == null) {
             return ['error' => 'Name|Email|Password is required!'];
@@ -29,7 +29,7 @@ class Validator
         }
     }
 
-    public static function validateUpdateUser($body)
+    public static function validateUpdateUser(mixed $body): array
     {
         if ($body == null) {
             return ['error' => 'Name|Password is required!'];
@@ -47,7 +47,7 @@ class Validator
         }
     }
 
-    public static function validateLogin($body)
+    public static function validateLogin(mixed $body): array
     {
         if ($body == null) {
             return ['error' => 'Email|Password is required!'];
@@ -65,7 +65,7 @@ class Validator
         }
     }
 
-    public static function validateFieldsBook($body)
+    public static function validateFieldsBook(mixed $body): array
     {
         if ($body == null) {
             return ['error' => 'Title|Description|Image is required!'];

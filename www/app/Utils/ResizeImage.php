@@ -4,7 +4,7 @@ namespace App\Utils;
 
 class ResizeImage
 {
-    public static function resize($image, $withImage)
+    public static function resize(string $image, int|float $widthImage): array
     {
         $base64Image = preg_replace('#^data:image/[^;]+;base64,#', '', $image);
 
@@ -17,7 +17,7 @@ class ResizeImage
 
             [$originalWidth, $originalHeight] = getimagesizefromstring($imageData);
 
-            $width = $withImage;
+            $width = $widthImage;
             $height = ($originalHeight / $originalWidth) * $width;
 
             $image = imagecreatefromstring($imageData);
