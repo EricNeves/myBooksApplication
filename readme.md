@@ -101,7 +101,6 @@ Depois de todo o processo, acesse <b>localhost:3131</b> para consumir toda a apl
 ### License 📃
 
 <img src="https://img.shields.io/github/license/EricNeves/myBooksApplication?style=flat-square&logo=github&color=red">
----
 
 ### Author 🧑‍💻
 <a href="https://www.instagram.com/ericneves_dev/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"></a> <a href="https://linkedin.com/in/ericnevesrr"> <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
