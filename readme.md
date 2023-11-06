@@ -10,6 +10,8 @@
   Aplicação Full Stack desenvolvida com PHP, PostgreSQL, ReactJS e Docker.
 </h4> 
 
+<p align="center">Data de criação: Aug 24, 2023</p>
+
 <p align="center">
   <img src="https://img.shields.io/github/last-commit/EricNeves/myBooksApplication?style=flat-square&logo=github" alt="Github">
   <img src="https://img.shields.io/github/languages/top/EricNeves/myBooksApplication?style=flat-square&logo=npm">
