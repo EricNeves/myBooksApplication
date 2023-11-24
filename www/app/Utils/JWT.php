@@ -46,9 +46,9 @@ class JWT
         return self::base64url_encode($signature);
     }
 
-    private static function base64url_encode(string $data): string
+    private static function base64url_encode(string $token): string
     {
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+        return rtrim(strtr(base64_encode($token), '+/', '-_'), '=');
     }
 
     private static function base64url_decode(string $token): string
